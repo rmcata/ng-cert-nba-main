@@ -5,21 +5,21 @@
     <div class="col-sm-11">
 
       <select [formControl]="conferenceControl">
-        <option [ngValue]="null"> Choose a conference ...</option>
+        <option [ngValue]="null">Choose a conference ...</option>
         <option [ngValue]="conference" *ngFor="let conference of vm.conferences; trackBy: trackByConferenceOrDivision">
           {{conference | conference}}
         </option>
       </select>
   
       <select [formControl]="divisionControl">
-        <option [ngValue]="null"> Choose a division ...</option>
+        <option [ngValue]="null">Choose a division ...</option>
         <option [ngValue]="division" *ngFor="let division of vm.divisions; trackBy: trackByConferenceOrDivision">
           {{division | division }}
         </option>
       </select>
   
       <select [formControl]="teamControl">
-        <option [ngValue]="null"> Choose a team ...</option>
+        <option [ngValue]="null">Choose a team ...</option>
         <option [ngValue]="team" *ngFor="let team of vm.teams; trackBy: trackByTeam">
           {{team.full_name}}
         </option>
@@ -31,7 +31,7 @@
 
     <div class="col-sm-11">
 
-      <select #daysSelect (change)="daysChange(daysSelect.value)">
+      <select [ngModel]="daysSelect" (ngModelChange)="daysChange($event)">
         <option [value]="day" *ngFor="let day of days">
           {{day}}
         </option>

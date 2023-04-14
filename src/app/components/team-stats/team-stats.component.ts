@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Observable, switchMap, tap } from 'rxjs';
 import { Game, Stats, Team } from 'src/app/interfaces/data.models';
-import { FiltersServiceService } from 'src/app/services/filters.service';
+import { FiltersService } from 'src/app/services/filters.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { NbaService } from 'src/app/services/nba.service';
 
@@ -18,10 +18,10 @@ export class TeamStatsComponent implements OnInit {
   games$!: Observable<Game[]>;
   stats!: Stats;
 
-  days = this._filtersService.dayDefault;;
+  days = this._filtersService.day;
 
   constructor(protected nbaService: NbaService,
-    private _filtersService: FiltersServiceService,
+    private _filtersService: FiltersService,
     private _modalService: ModalService) { }
 
   @ViewChild('modal') modal: TemplateRef<any> | undefined;

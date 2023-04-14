@@ -6,15 +6,19 @@ import { NbaService } from './nba.service';
 @Injectable({
   providedIn: 'root'
 })
-export class FiltersServiceService {
+export class FiltersService {
 
   readonly days = [6,12,20];
-  readonly dayDefault = 6;
+  private readonly _dayDefault = 6;
 
-  private _numberDays = new BehaviorSubject(this.dayDefault);
+  private _numberDays = new BehaviorSubject(this._dayDefault);
   numberDays$ = this._numberDays.asObservable();
   setNumberDays(value: number){
     this._numberDays.next(value)
+  }
+
+  get day(){
+    return this._numberDays.value;
   }
 
   private _conferenceFilter$: Observable<any | null> = of(null);
