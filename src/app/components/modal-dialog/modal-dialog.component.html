@@ -1,0 +1,20 @@
+<ng-container *ngIf="modal$ | async as modal">
+
+    <div class="modal">
+        <div class="modal__background" (click)="closeModal()"></div>
+
+        <div class="modal__container">
+
+            <ng-container *ngTemplateOutlet="modal">
+                <div class="modal__container__content">
+                    <ng-content select="[content]"></ng-content>
+                </div>
+                <div class="modal__container__buttons">
+                    <ng-content select="[buttons]"></ng-content>
+                </div> 
+            </ng-container>
+
+        </div>
+    </div>
+
+</ng-container>

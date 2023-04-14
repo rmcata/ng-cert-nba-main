@@ -30,4 +30,16 @@ export interface Stats {
   lastGames: Result[];
 }
 
+export interface Division {
+  id: number;
+  division: string;
+  conference: Conference;
+}
+
+export interface Conference {
+  id: number;
+  conference: string;
+}
+
+
 export type Result = 'W' | 'L';

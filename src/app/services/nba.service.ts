@@ -1,8 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {map, Observable} from 'rxjs';
 import { format, subDays } from 'date-fns';
-import {Game, Stats, Team} from './data.models';
+import { map, Observable, of } from 'rxjs';
+import { Game, Stats, Team } from '../interfaces/data.models';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,35 @@ export class NbaService {
     return this.trackedTeams;
   }
 
+  getDivisions(){
+    return of([
+      {
+        division: 'Atlantic',
+        conference: 'East'
+      },
+      {
+        division: 'Central',
+        conference: 'East'
+      },
+      {
+        division: 'Southeast',
+        conference: 'East'
+      },
+      {
+        division: 'Northwest',
+        conference: 'West'
+      },
+      {
+        division: 'Pacific',
+        conference: 'West'
+      },
+      {
+        division: 'Southwest',
+        conference: 'West'
+      }
+    ])
+  }
+
   getAllTeams(): Observable<Team[]> {
     return this.http.get<{data: Team[]}>(`${this.API_URL}/teams?page=0`,
       {headers: this.headers}).pipe(
@@ -36,8 +65,8 @@ export class NbaService {
     );
   }
 
-  getLastResults(team: Team, numberOfDays = 12 ): Observable<Game[]> {
-    return this.http.get<{meta: any, data: Game[]}>(`${this.API_URL}/games?page=0${this.getDaysQueryString(numberOfDays)}`,
+  getLastResults(team: Team, days: number): Observable<Game[]> {
+    return this.http.get<{meta: any, data: Game[]}>(`${this.API_URL}/games?page=0${this.getDaysQueryString(days)}`,
       {headers: this.headers, params: {per_page: 12, "team_ids[]": ""+team.id}}).pipe(
         map(res => res.data)
     );

@@ -1,0 +1,52 @@
+
+<ng-container *ngIf="vm$ | async as vm; else loading">
+  
+  <div class="row">
+    <div class="col-sm-11">
+
+      <select [formControl]="conferenceControl">
+        <option [ngValue]="null"> Choose a conference ...</option>
+        <option [ngValue]="conference" *ngFor="let conference of vm.conferences; trackBy: trackByConferenceOrDivision">
+          {{conference | conference}}
+        </option>
+      </select>
+  
+      <select [formControl]="divisionControl">
+        <option [ngValue]="null"> Choose a division ...</option>
+        <option [ngValue]="division" *ngFor="let division of vm.divisions; trackBy: trackByConferenceOrDivision">
+          {{division | division }}
+        </option>
+      </select>
+  
+      <select [formControl]="teamControl">
+        <option [ngValue]="null"> Choose a team ...</option>
+        <option [ngValue]="team" *ngFor="let team of vm.teams; trackBy: trackByTeam">
+          {{team.full_name}}
+        </option>
+      </select>
+
+      <button [disabled]="!teamControl.valid" class="primary" 
+        (click)="trackTeam()">Track team</button>
+    </div>
+
+    <div class="col-sm-11">
+
+      <select #daysSelect (change)="daysChange(daysSelect.value)">
+        <option [value]="day" *ngFor="let day of days">
+          {{day}}
+        </option>
+      </select>
+       days
+    </div>
+  
+  </div>
+  <div class="row">
+    <app-team-stats class="col-sm-4" *ngFor="let team of nbaService.getTrackedTeams()" [team]="team">
+  
+    </app-team-stats>
+  </div>  
+</ng-container>
+
+<ng-template #loading>
+  Loading...
+</ng-template>
